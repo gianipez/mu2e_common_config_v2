@@ -1,0 +1,2 @@
+physics.filters.tprCosmicSeedDePEventPrescale.nPrescale    : 1
+physics.filters.tprCosmicSeedDePEventPrescale.triggerFlag  : ["PrescaleRandom"]

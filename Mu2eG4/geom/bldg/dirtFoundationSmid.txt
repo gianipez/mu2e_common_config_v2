@@ -1,0 +1,32 @@
+// SimpleConfig geometry file automatically produced for original file:
+//
+//   geom/geom_foundation_Smid.ccl
+
+string dirt.foundation.Smid.name     = "dirtFoundationSmid";
+
+string dirt.foundation.Smid.material = "MBOverburden";
+
+double dirt.foundation.Smid.offsetFromMu2eOrigin.x   = 947.4;
+double dirt.foundation.Smid.offsetFromFloorSurface.y = -685.8;
+double dirt.foundation.Smid.offsetFromMu2eOrigin.z   = -3581.4;
+
+double dirt.foundation.Smid.yHalfThickness           = 533.4;
+
+vector<double> dirt.foundation.Smid.xPositions = {
+  20345.4,   // h1
+  7861.3,   // h2
+  7861.3,   // h2_to_S
+  20345.4   // h1_to_S
+};
+
+vector<int>    dirt.foundation.Smid.yreplace   = { 2, 3 };
+vector<double> dirt.foundation.Smid.yPositions = {
+  -12115.8,   // h1
+  -11982.4,   // h2
+  -50000,   // h2_to_S
+  -50000   // h1_to_S
+};
+
+// Local Variables:
+// mode:c++
+// End:

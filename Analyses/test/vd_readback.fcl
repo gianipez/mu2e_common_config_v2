@@ -1,0 +1,50 @@
+# Configuration file for Readback
+#
+# Readback the output of g4test_03.fcl; make histograms and printout.
+#
+
+#include "Offline/fcl/minimalMessageService.fcl"
+#include "Offline/fcl/standardProducers.fcl"
+#include "Offline/fcl/standardServices.fcl"
+
+#include "Offline/Analyses/fcl/prolog.fcl"
+
+# Give this job a name.
+process_name : VDReadBack01
+
+# Start form an empty source
+source :
+{
+  module_type : RootInput
+  fileNames   : [ "data_03.root" ]
+  maxEvents : -1
+}
+
+services : {
+   @table::Services.Core
+}
+
+physics :
+{
+  producers:
+  {  }
+
+
+  analyzers:
+  {
+
+    # Look at the hits from virtualdetectors
+    readvd : @local::readvd
+
+  }
+
+  e1 : [readvd]
+
+  end_paths      : [e1]
+
+}
+
+physics.analyzers.readvd.debugOutput : 0
+physics.analyzers.readvd.savePDG     : [e_minus, e_plus, mu_minus, mu_plus, gamma, pi0, pi_plus, pi_minus, K_plus, K_minus, n0, proton, anti_proton]
+physics.analyzers.readvd.maxPrint    : 10
+services.TFileService.fileName  : "vd_readback.root"

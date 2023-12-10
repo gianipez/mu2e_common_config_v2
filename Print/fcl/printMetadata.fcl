@@ -1,0 +1,18 @@
+#
+# print run, event subrun summaries for a data file
+# for sim files use printMetdataSim.fcl
+#
+
+process_name : rse
+
+physics :{
+  analyzers: {
+      res : {
+         module_type : RunSubrunEvent
+      }
+   }
+
+   e1        : [ res ]
+   end_paths : [ e1 ]
+
+}

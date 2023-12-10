@@ -1,0 +1,45 @@
+#! /bin/bash
+#
+# Create new directories within the current Mu2e Offline environment.
+#
+#
+
+# Check that this request can be honoured.
+
+if [ $# != 1 ];then
+   echo "Must supply the name of exactly one new package to create."
+   exit
+fi
+
+if [ -e $1 ];then
+   echo "The directory " $1 " already exists."
+   echo "Please clean up and restart."
+   echo "Stopping now."
+   exit
+fi
+
+# All Ok, do the work.
+
+echo "Will create a new subdirectory named: " $1
+
+# Create standard subdirectories
+mkdir -p $1/inc
+mkdir -p $1/src
+mkdir -p $1/test
+
+# A generic SConscript that should ususally work.
+SCRIPTDIR=$( dirname $(readlink -f $BASH_SOURCE) )
+SCONSCRIPT=$SCRIPTDIR/../Analyses/src/SConscript
+if [ ! -f $SCONSCRIPT ] ; then
+   echo "Could not find example SConscript file: $SCONSCRIPT"
+   exit
+fi
+
+cp $SCONSCRIPT $1/src
+
+# Make sure there is at least one file in each of the other subdirectories.
+cat > $1/inc/Placeholder.txt <<EOF
+A placeholder file
+EOF
+
+cp $1/inc/Placeholder.txt $1/test/Placeholder.txt

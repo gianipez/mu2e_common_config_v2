@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+#
+# Script to build the files found in this directory.
+#
+# Original author Rob Kutschke.
+#
+
+import os
+Import('env')
+Import('mu2e_helper')
+helper=mu2e_helper(env);
+
+mainlib = helper.make_mainlib ( [ 'art_Persistency_Common',
+                                  'art_Utilities',
+                                  'canvas',
+                                  'fhiclcpp',
+                                  'fhiclcpp_types',
+                                  'tbb',
+                                  'cetlib',
+                                  'cetlib_except',
+                                  'CLHEP',
+                                  'boost_regex',
+                                  'boost_filesystem',
+                                  'GenVector',
+                                  'MathCore'
+                                ]
+                              )
+
+BINLIBS   = [ mainlib, 'GenVector', 'MathCore']
+helper.make_bin("TwoDPointTest",BINLIBS,[])
+
+# turn pywrap.i into a python interface
+helper.make_pywrap ()
+
+# This tells emacs to view this file in python mode.
+# Local Variables:
+# mode:python
+# End:

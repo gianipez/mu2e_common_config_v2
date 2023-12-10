@@ -1,0 +1,73 @@
+# Run trigger, add MC truth matching, and write TrkAna tree output
+# To create a functional job you must add database purpose and version; ie create a fcl stub that #includes this file and
+# adds (for instance):
+# services.DbService.purpose: MDC2020_perfect
+# services.DbService.version: v1_0
+#
+#include "Offline/fcl/standardServices.fcl"
+#include "Offline/Trigger/fcl/prolog_trigger.fcl"
+#include "Offline/CommonMC/fcl/prolog_trigger.fcl"
+#include "TrkAna/fcl/prolog_trigger.fcl"
+process_name : OnSpillTrigger
+services : @local::Services.Reco
+source : {
+  module_type : RootInput
+  inputCommands: ["keep *",
+    "drop mu2e::HelixSeeds_*_*_*",
+    "drop mu2e::KalSeeds_*_*_*",
+    "drop mu2e::TriggerInfo_*_*_*",
+    "drop mu2e::CaloClusters_*_*_*",
+    "drop mu2e::TimeClusters_*_*_*"
+  ]
+}
+
+physics : {
+  producers : {
+    @table::Trigger.producers
+    SelectRecoMCcpr : {
+      @table::CommonMCTrigger.TTSelectRecoMC
+      KalSeedCollections  : [ "TTCalSeedFitDem" ]
+      HelixSeedCollections  : ["TTCalHelixMergerDeM" ]
+    }
+    SelectRecoMCtpr : {
+      @table::CommonMCTrigger.TTSelectRecoMC
+      KalSeedCollections  : [ "TTKSFDeM" ]
+      HelixSeedCollections  : ["TTHelixMergerDeM" ]
+    }
+  }
+  filters :  { @table::Trigger.filters }
+  analyzers : {
+    @table::Trigger.analyzers
+    TAtpr : @local::TrkAnaTrigger.TrkAnaTT
+    TAcpr : @local::TrkAnaTrigger.TrkAnaTT
+  }
+  EndPath : [TAtpr, TAcpr]
+}
+#include "Offline/gen/fcl/Trigger/OnSpillTrigMenu/OnSpillTrigMenu.fcl"
+physics.producers.EWMProducer.SpillType : 1
+#include "Production/JobConfig/common/epilog.fcl"
+physics.end_paths : [ EndPath ]
+# add MC truth matching to the relevant paths
+physics.tprDeM_highP_stopTarg_trigger           : [ @sequence::physics.tprDeM_highP_stopTarg_trigger, SelectRecoMCtpr]
+physics.cprDeM_highP_stopTarg_trigger           : [ @sequence::physics.cprDeM_highP_stopTarg_trigger, SelectRecoMCcpr]
+
+physics.analyzers.TAtpr.SelectEvents : [  tprDeM_highP_stopTarg_trigger  ]
+physics.analyzers.TAtpr.candidate.input : "TTKSF"
+physics.analyzers.TAtpr.candidate.suffix : "DeM"
+physics.analyzers.TAtpr.KalSeedMCAssns: "SelectRecoMCtpr"
+
+physics.analyzers.TAcpr.SelectEvents : [  cprDeM_highP_stopTarg_trigger  ]
+physics.analyzers.TAcpr.candidate.input : "TTCalSeedFit"
+physics.analyzers.TAcpr.candidate.suffix : "Dem"
+physics.analyzers.TAcpr.KalSeedMCAssns: "SelectRecoMCcpr"
+
+# this next is currently needed to get correct hit-level MC truth matching.  It needs to be fixed at the
+# ComboHitCollection.  This setting works, but will slow down the trigger: don't use this script for timing studies
+physics.producers.TTmakeSH.FilterHits : false
+physics.producers.TTmakePH.TestFlag : true
+#physics.producers.TTmakePH.FilterHits : true
+physics.producers.TTmakePH.StrawHitSelectionBits : ["EnergySelection","TimeSelection","RadiusSelection"]
+physics.producers.TTmakePH.StrawHitMask          : ["Dead","Noisy"]
+
+services.TimeTracker.printSummary: true
+services.TFileService.fileName: "nts.owner.TTKKSeed.version.sequence.root"

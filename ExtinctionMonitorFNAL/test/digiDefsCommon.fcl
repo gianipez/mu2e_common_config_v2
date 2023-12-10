@@ -1,0 +1,81 @@
+// Andrei Gaponenko, 2012
+
+#include "Offline/fcl/minimalMessageService.fcl"
+#include "Offline/fcl/standardProducers.fcl"
+#include "Offline/fcl/standardServices.fcl"
+
+source : { module_type : RootInput }
+
+services : {
+    message : @local::default_message
+
+    scheduler: { defaultExceptions : false }
+    TFileService : {}
+    RandomNumberGenerator : {defaultEngineKind: "MixMaxRng"}
+
+    GeometryService : { inputFile : "Offline/Mu2eG4/geom/geom_common.txt" }
+    ConditionsService : { conditionsfile : "Offline/ConditionsService/data/conditions_01.txt" }
+    GlobalConstantsService : { inputFile : "Offline/GlobalConstantsService/data/globalConstants_01.txt" }
+    SeedService       : @local::automaticSeeds
+    Mu2eG4Helper : { }
+}
+
+physics : {
+    producers : {
+        pixelDigitization : @local::pixelDigitization
+    }
+    analyzers: {
+        emfprintraw: {
+            module_type: EMFDetPrintRawHits
+            inputModuleLabel  : "pixelDigitization"
+            inputInstanceName : ""
+        }
+        emfprinttruth: {
+            module_type: EMFDetPrintRawHitTruth
+            hitsModuleLabel  : "pixelDigitization"
+            truthModuleLabel  : "pixelDigitization"
+        }
+        hitValidation: {
+            module_type: EMFRawHitsValidator
+            inputModuleLabel : "pixelDigitization"
+            inputInstanceName : ""
+            geomModuleLabel : ""
+            geomInstanceName : ""
+        }
+        emfSimHits: {
+            module_type: EMFDetHistSimHits
+            inputModuleLabel  : "g4run"
+            geomModuleLabel  : ""
+        }
+        emfRawHits: {
+            module_type: EMFDetHistRawHits
+            inputModuleLabel  : "pixelDigitization"
+            inputInstanceName : ""
+            geomModuleLabel : ""
+        }
+    }
+
+    tprint : [ pixelDigitization ]
+
+    //eprint: [ vdprint, emfSimHits, emfprinttruth, hitValidation, emfRawHits ]
+    eprint: [ hitValidation, emfSimHits, emfRawHits, emfprintraw ]
+    out : [ FullOutput ]
+
+    trigger_paths  : [tprint]
+    end_paths : [ out, eprint]
+}
+
+outputs: { FullOutput : { module_type : RootOutput } }
+
+//----------------------------------------------------------------
+services.SeedService.baseSeed         :  8
+services.SeedService.maxUniqueEngines :  20
+
+// somewhat reduce the amount of "volatile" printouts
+services.message.destinations.log.noTimeStamps : true
+services.message.statistics.noTimeStamps : true
+
+// This tells emacs to view this file in the JavaScript mode.
+// Local Variables:
+// mode:js
+// End:

@@ -1,0 +1,49 @@
+# -*- mode: tcl -*-
+BEGIN_PROLOG
+
+# define non-proton GenIDs
+nonProtonGenIds : ["unknown", "particleGun", "cosmicToy", "cosmicDYB", "cosmic", "CosmicCRY", "pbarFlat", "CosmicCORSIKA"]
+muLifeGenIds : [ "StoppedParticleReactionGun", "dioTail", "ExternalRMC", "InternalRMC",
+  "MuCapProtonGenTool", "MuCapDeuteronGenTool", "DIOGenTool", "MuCapNeutronGenTool", "MuCapPhotonGenTool", "MuCapGammaRayGenTool" ]
+CommonMC: {
+  producers: {
+    #
+    # time offset producers
+    protonTimeOffset : {
+        module_type: ProtonTimeOffset
+        randPDFparameters : {
+            pulseType : default
+            limitingHalfWidth : 125.0
+            potPulse  : "Offline/Mu2eUtilities/data/potTimingDistribution_20160511.txt"
+            acDipole  : "Offline/Mu2eUtilities/data/acDipoleTransmissionFunction_20160511.txt"
+        }
+    }
+    cosmicTimeOffset : { module_type: CosmicTimeOffset }
+    # Event window marker
+    EWMProducer : {
+      module_type : EventWindowMarkerProducer
+      RecoFromMCTruth : true
+      RecoFromMCTruthErr : 0.5
+    }
+  }
+  FindMCPrimary : {
+    module_type : FindMCPrimary
+    debugLevel : 0
+    SimParticles : "compressDigiMCs"
+    PrimaryGenIds : ["CeEndpoint", "CeLeadingLog", "dioTail",
+      "cosmicDYB", "CosmicCRY", "CosmicCORSIKA",
+      "InternalRPC" , "InternalRMC", "ExternalRPC", "ExternalRMC",
+      "mu2eFlatPhoton" , "gammaPairProduction"  ]
+  }
+
+  SelectRecoMC : {
+    module_type : SelectRecoMC
+    PBTMC : EWMProducer
+    EventWindowMarker : EWMProducer
+    debugLevel : 0
+  }
+  DigiSim : [ EWMProducer  ]
+}
+#------------------------------------------------------------------------------
+
+END_PROLOG

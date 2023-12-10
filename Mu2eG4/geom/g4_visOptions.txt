@@ -1,0 +1,48 @@
+
+//-----------------------
+// Visualization
+//-----------------------
+
+bool g4.visible                             = true;
+vector<string> g4.visible.drop              = {};
+vector<string> g4.visible.keep              = {};
+vector<string> g4.visible.order             = {"g4.visible.drop","g4.visible.keep"};
+
+bool g4.solid                               = false;
+vector<string> g4.solid.drop                = {};
+vector<string> g4.solid.keep                = {};
+vector<string> g4.solid.order               = {"g4.solid.drop","g4.solid.keep"};
+
+bool g4.forceAuxEdgeVisible                 = true;
+vector<string> g4.forceAuxEdgeVisible.drop  = {};
+vector<string> g4.forceAuxEdgeVisible.keep  = {};
+vector<string> g4.forceAuxEdgeVisible.order = {"g4.forceAuxEdgeVisible.drop","g4.forceAuxEdgeVisible.keep"};
+
+//-----------------------
+// Surface checker
+//-----------------------
+
+bool g4.doSurfaceCheck                 = false;
+vector<string> g4.doSurfaceCheck.drop  = {};
+vector<string> g4.doSurfaceCheck.keep  = {};
+vector<string> g4.doSurfaceCheck.order = { "g4.doSurfaceCheck.drop","g4.doSurfaceCheck.keep" };
+
+// number of random points on the volume surface
+int  g4.nSurfaceCheckPointsPercmsq =   1;
+int  g4.minSurfaceCheckPoints      = 100; // per volume
+int  g4.maxSurfaceCheckPoints = 10000000; // per volume
+
+//-----------------------
+// Volume lacement
+//-----------------------
+
+bool g4.placePV                 = true;
+vector<string> g4.placePV.drop  = {};
+vector<string> g4.placePV.keep  = {};
+vector<string> g4.placePV.order = {"g4.placePV.drop","g4.placePV.keep" };
+
+
+// This tells emacs to view this file in c++ mode.
+// Local Variables:
+// mode:c++
+// End:

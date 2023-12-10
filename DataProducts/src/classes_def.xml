@@ -1,0 +1,61 @@
+<!--  -->
+<!--  Only include art::Wrapper lines for classes that we would like to put into the event -->
+<!--  Include the non-wrapper lines for all classes on the art::Wrapper lines and     -->
+<!--  for all classes inside of those classes.                                        -->
+
+
+<lcgdict>
+
+ <class name="std::vector<cet::map_vector_key>"/>
+ <class name="boost::array<double,5>"/>
+
+<!--  ********* PDG  ********* -->
+  <class name="mu2e::PDGCodeDetail"/>
+  <class name="mu2e::PDGCode"/>
+
+<!--  ********* straws  ********* -->
+ <class name="mu2e::StrawEnd"/>
+ <class name="mu2e::StrawId"/>
+ <class name="mu2e::StrawIdMask"/>
+ <class name="mu2e::LayerId"/>
+ <class name="mu2e::PanelId"/>
+
+<!--  ********* tracker  ********* -->
+ <class name="mu2e::Helicity"/>
+ <class name="mu2e::IndexMap"/>
+ <class name="art::Wrapper<mu2e::IndexMap>"/>
+ <class name="mu2e::VirtualDetectorId"/>
+
+<!--  ******* calorimeter ******** -->
+ <class name="mu2e::CaloSiPMId"/>
+ <class name="mu2e::CaloRawSiPMId"/>
+ <class name="mu2e::CrystalId"/>
+
+<!--  ********* CRV  ********* -->
+ <class name="mu2e::CRSScintillatorBarIndex"/>
+
+<!--  ********* ExtMon  ********* -->
+ <class name="mu2e::ExtMonFNALModuleId"/>
+ <class name="mu2e::ExtMonFNALChipId"/>
+ <class name="mu2e::ExtMonFNALPixelId"/>
+
+<!--  ********* trigger  ********* -->
+ <class name="mu2e::EventWindowMarker" />
+ <class name="art::Wrapper<mu2e::EventWindowMarker>"/>
+
+<!--  ********* CLHEP  ********* -->
+ <class name="std::vector<CLHEP::Hep2Vector>" />
+
+ <class name="CLHEP::HepRotation"/>
+ <class name="CLHEP::HepRotationX"/>
+ <class name="CLHEP::HepRotationY"/>
+ <class name="CLHEP::HepRotationZ"/>
+
+ <class name="HepGeom::Transform3D"/>
+
+<!--  ********* STM  ********* -->
+ <class name="mu2e::STMChannel" />
+ <class name="mu2e::STMTestBeamEventInfo" />
+ <class name="art::Wrapper<mu2e::STMTestBeamEventInfo>" />
+
+</lcgdict>
