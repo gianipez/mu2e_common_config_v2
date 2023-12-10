@@ -1,0 +1,107 @@
+// Run G4 simulation starting from saved hits.
+// Most of the configuration was copied from g4test_03.fcl
+
+#include "Offline/fcl/minimalMessageService.fcl"
+#include "Offline/fcl/standardProducers.fcl"
+#include "Offline/fcl/standardServices.fcl"
+
+process_name: g4FromStepPointMCs
+
+source: {
+    module_type: RootInput
+    fileNames: ["gvdCommon.root"]
+    maxEvents: -1
+}
+
+services: {
+    //message : @local::mf_production
+    message: @local::default_message
+
+    scheduler: { defaultExceptions : false }
+
+    TFileService          : { fileName : "g4FromStepPointMCs.root" }
+    RandomNumberGenerator : {defaultEngineKind: "MixMaxRng" }
+
+    GeometryService   : { inputFile : "Offline/Mu2eG4/geom/geom_common.txt" }
+    ConditionsService : { conditionsfile : "Offline/ConditionsService/data/conditions_01.txt"  }
+    GlobalConstantsService : { inputFile : "Offline/GlobalConstantsService/data/globalConstants_01.txt" }
+    Mu2eG4Helper      : { }
+    SeedService       : @local::automaticSeeds
+}
+
+physics: {
+    producers: {
+        testSPM: {
+            module_type: FromStepPointMCs
+            inputModuleLabel : "fvdCommon"
+            inputInstanceName : ""
+            //logLevel : 2
+        }
+
+         # Run G4 and add its output to the event.
+        g4run : @local::g4run
+
+        # Form StrawHits (SH).
+        makeSD : @local::makeSD
+        makeSH : @local::makeSHfromSD
+
+        @table::CaloDigiMC.producers
+        @table::CaloReco.producers
+
+        # Save state of the random number engines.
+        randomsaver : @local::randomsaver
+
+    }
+
+    analyzers: {
+
+        checkhits: {
+            module_type            : ReadBack
+            generatorModuleLabel   : generate
+            g4ModuleLabel          : g4run
+            caloReadoutModuleLabel : CaloHitMaker
+            diagLevel              : 0
+            minimumEnergy          : 0.000
+            maxFullPrint           : 201
+        }
+
+        readStrawHits: {
+            module_type      : ReadStrawHit
+            recoModuleLabel : makeSH
+            simModuleLabel : makeSD
+            diagLevel        : 3
+            maxFullPrint     : 100
+        }
+
+    }
+
+    p1 : [testSPM, g4run, makeSD, makeSH, @sequence::CaloDigiMC.DigiSim,@sequence::CaloReco.Reco, randomsaver ]
+    e1 : [checkhits, readStrawHits, outfile]
+
+    trigger_paths  : [p1]
+    end_paths      : [e1]
+}
+
+outputs: {
+
+  outfile : {
+    module_type   :   RootOutput
+    fileName      :   "g4data_FromStepPointMCs.root"
+  }
+
+}
+
+// // Make G4 use our GenParticleCollection
+physics.producers.g4run.generatorModuleLabel : testSPM
+
+// Enable diagnsotic printout for pedagogical purposes.
+physics.producers.makeSH.diagLevel : 0
+physics.producers.makeSH.maxFullPrint : 5
+physics.producers.CaloReadoutHitsMaker.diagLevel : 0
+physics.producers.CaloReadoutHitsMaker.maxFullPrint : 201
+physics.producers.CaloCrystalHitsMaker.diagLevel : 0
+physics.producers.CaloCrystalHitsMaker.maxFullPrint : 201
+
+// Initialze seeding of random engines: do not put these lines in base .fcl files for grid jobs.
+services.SeedService.baseSeed         :  8
+services.SeedService.maxUniqueEngines :  20

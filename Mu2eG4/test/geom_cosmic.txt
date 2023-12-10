@@ -1,0 +1,24 @@
+//
+// See Mu2e-doc-???? for details.
+//
+//
+// Original author Rob Kutschke
+//
+// Warning:  do not write 10000. as 10,000.; it will be read as two numbers (10., 0.).
+
+
+// Base description
+#include "Offline/Mu2eG4/test/geom_01.txt"
+
+// Modifications for this job//
+string hall.insideMaterialName = "G4_Fe";
+bool g4.doCosmicKiller = true;
+int  g4.cosmicKillLevel = 2;
+
+
+
+//
+// This tells emacs to view this file in c++ mode.
+// Local Variables:
+// mode:c++
+// End:

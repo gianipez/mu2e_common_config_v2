@@ -1,0 +1,72 @@
+# -*- mode:tcl -*-
+# variables which need defaults:
+# -----------------------------
+# :DEFAULT: TRIGGER_PATH=p6
+#------------------------------------------------------------------------------
+#include "Offline/fcl/minimalMessageService.fcl"
+#include "Offline/fcl/standardProducers.fcl"
+#include "Offline/fcl/standardServices.fcl"
+BEGIN_PROLOG
+  INPUT_MODULE  @protect_ignore: RootInput     # choices: EmptyEvent / RootInput
+  TRIGGER_PATH  @protect_ignore: [ p1    ]     # defined below
+  SIM_ID                       : 1626
+END_PROLOG
+
+#include "Stntuple/fcl/stntuple.fcl"
+
+process_name : TestDeltaFinder
+
+physics : {
+
+    producers : { @table::Reconstruction.producers
+
+        ComboHitFilter : { @table::CalPatRec.producers.ComboHitFilter
+            simID      : @local::SIM_ID
+            debugLevel : 1
+        }
+
+        DeltaFinder: { @table::CalPatRec.producers.DeltaFinder
+            diagLevel                     : 1 ## 0 ##
+            debugLevel                    : 1 ## 1 ##
+
+            diagPlugin : { @table::CalPatRec.producers.DeltaFinder.diagPlugin
+                printDeltaSeeds           : 1
+                printDeltaCandidates      : 1
+
+                mcDiag                    : true
+                printComboHits            : 1 ## 0 ##
+                printElectrons            : 1 ## 0 ##
+                printElectronsHits        : 1 ## 1 ##
+                printElectronsMinMom      : 0.
+                printElectronsMaxMom      : 20.
+                printElectronsMinNHits    : 5   ## 30
+                printElectronsMaxFReco    : 0.2 ## 0.5
+            }
+        }
+    }
+
+    filters   : { @table::Reconstruction.filters   }
+    analyzers : { @table::stntuple.analyzers
+        DeltaFinderAna: { @table::CalPatRec.analyzers.DeltaFinderAna
+            debugLevel                    : 0 ## 1
+            printElectronHits             : 1
+        }
+    }
+
+    p1: [                 @sequence::TrkHitReco.PrepareHits, DeltaFinder ]
+    p2: [ ComboHitFilter, @sequence::TrkHitReco.PrepareHits, DeltaFinder ]
+
+    trigger_paths : [ @sequence::TRIGGER_PATH ]
+
+    e1            : [ DeltaFinderAna ] ## MuHitDisplay  ] # defaultOutput ]
+    end_paths     : [ e1             ]
+}
+#------------------------------------------------------------------------------
+# uncomment to write the DST out
+#------------------------------------------------------------------------------
+# physics.out : [detectorOutput]
+# outputs.detectorOutput.fileName           : "sim.murat.bbb.ccc.read_reco_stn_tcn.art"
+services.TFileService.fileName            : "deltaFinder_debug.root"
+#------------------------------------------------------------------------------
+# everything below is appended by murat/scripts/submit_mu2e_job
+#------------------------------------------------------------------------------

@@ -1,0 +1,55 @@
+// SimpleConfig geometry file automatically produced for original file:
+//
+//   geom/geom_remote_ceiling.ccl
+
+string building.remote.handling.ceiling.name     = "remoteHandlingCeiling";
+
+string building.remote.handling.ceiling.material = "CONCRETE_MARS";
+
+double building.remote.handling.ceiling.offsetFromMu2eOrigin.x   = 947.4;
+double building.remote.handling.ceiling.offsetFromFloorSurface.y = 4826;
+double building.remote.handling.ceiling.offsetFromMu2eOrigin.z   = -3581.4;
+
+double building.remote.handling.ceiling.yHalfThickness           = 406.4;
+
+vector<double> building.remote.handling.ceiling.xPositions = {
+  11684,   // R0
+  11684,   // r1
+  9245.6,   // R2
+  9245.6,   // R3
+  3708.4,   // R4
+  3708.4,   // R5
+  -12319,   // r8
+  -12319,   // R9
+  -3022.61,  // DNB Add 1
+  -3022.61,  // DNB Add 2
+  -2108.2,   // DNB Add 3
+  -2108.2,   // DNB Add 4
+  941.30,   // S0 mod DNB was 1468.12
+  2463.8   // S2  mod DNB was 3251.2
+};
+//  2463.8,   // S1  mod DNB was 3251.2
+
+
+vector<double> building.remote.handling.ceiling.yPositions = {
+  10729,   // R0
+  16611.6,   // r1
+  16611.6,   // R2
+  13512.8,   // R3
+  13512.8,   // R4
+  16611.6,   // R5
+  16611.6,   // r8
+  6858,   // R9
+  6858,   // Add DNB 1
+  7467.6, // Add DNB 2
+  7467.6, // Add DNB 3
+  6858,   // Add DNB 4
+  6858,   // S0
+  8446   // S2  mod DNB was 8674.1
+};
+
+  //  7289.8,   // S1  del DNB
+
+// Local Variables:
+// mode:c++
+// End:

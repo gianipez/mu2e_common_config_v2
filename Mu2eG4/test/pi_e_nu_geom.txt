@@ -1,0 +1,17 @@
+//
+// Geometry file for study of pi-> e nu at rest as a
+// calibration tool.
+//
+//
+// Original author Rob Kutschke
+//
+
+#include "Offline/Mu2eG4/test/geom_01.txt"
+
+// Lower the magnetic field
+double bfield.scaleFactor = 0.65;
+
+// This tells emacs to view this file in c++ mode.
+// Local Variables:
+// mode:c++
+// End:
