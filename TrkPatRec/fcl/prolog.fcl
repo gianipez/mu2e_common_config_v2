@@ -2,9 +2,9 @@
 #------------------------------------------------------------------------------
 # this file is included by fcl/standardProducers.fcl inside the PROLOG section
 #------------------------------------------------------------------------------
-#include "Offline/TrkPatRec/fcl/Particle.fcl"
-#include "Offline/TrkPatRec/fcl/PanelAmbigResolver.fcl"
-#include "Offline/fcl/TrkCaloDt.fcl"
+#include "mu2e_common_config/TrkPatRec/fcl/Particle.fcl"
+#include "mu2e_common_config/TrkPatRec/fcl/PanelAmbigResolver.fcl"
+#include "mu2e_common_config/fcl/TrkCaloDt.fcl"
 BEGIN_PROLOG
 
 
@@ -23,8 +23,8 @@ TimeClusterFinder : {
 
   ComboHitCollection     : "FlagBkgHits"
   CaloClusterCollection  : "CaloClusterMaker"
-  ClusterMVA             : { MVAWeights : "Offline/TrkPatRec/data/TimeCluster.weights.xml" }
-  ClusterCaloMVA         : { MVAWeights : "Offline/TrkPatRec/data/TimeClusterCalo.weights.xml" }
+  ClusterMVA             : { MVAWeights : "mu2e_common_config/TrkPatRec/data/TimeCluster.weights.xml" }
+  ClusterCaloMVA         : { MVAWeights : "mu2e_common_config/TrkPatRec/data/TimeClusterCalo.weights.xml" }
   HitSelectionBits       : ["EnergySelection","TimeSelection","RadiusSelection"]
   HitBackgroundBits      : @local::PatRecBackground
   UseCaloCluster : true
@@ -60,7 +60,7 @@ TimeAndPhiClusterFinder : {
   CaloClusterCollection  : "CaloClusterMaker"
   HitSelectionBits       : ["EnergySelection","TimeSelection","RadiusSelection"]
   HitBackgroundBits      : @local::PatRecBackground
-  MVATime                : { MVAWeights : "Offline/TrkPatRec/data/TimePhiCluster.weights.xml" }
+  MVATime                : { MVAWeights : "mu2e_common_config/TrkPatRec/data/TimePhiCluster.weights.xml" }
   TestFlag               : true
   UseCaloCluster         : false
   CaloClusterMinE        : 50.0
@@ -182,8 +182,8 @@ RobustMultiHelixFinder : {
 RobustHelixFinder : {
   module_type   : RobustHelixFinder
   ComboHitCollection     : "FlagBkgHits"
-  HelixStereoHitMVA      : { MVAWeights : "Offline/TrkPatRec/data/HelixStereoHitMVA.weights.xml" }
-  HelixNonStereoHitMVA   : { MVAWeights : "Offline/TrkPatRec/data/HelixNonStereoHitMVA.weights.xml" }
+  HelixStereoHitMVA      : { MVAWeights : "mu2e_common_config/TrkPatRec/data/HelixStereoHitMVA.weights.xml" }
+  HelixNonStereoHitMVA   : { MVAWeights : "mu2e_common_config/TrkPatRec/data/HelixNonStereoHitMVA.weights.xml" }
   DiagPlugin : {
     diagLevel                    : 0
     tool_type                    : "RobustHelixFinderDiag"

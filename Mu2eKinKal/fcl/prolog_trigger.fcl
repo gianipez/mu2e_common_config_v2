@@ -1,7 +1,7 @@
 #
 #  Trigger-specific overrides for KinKal settings
 #
-#include "Offline/Mu2eKinKal/fcl/prolog.fcl"
+#include "mu2e_common_config/Mu2eKinKal/fcl/prolog.fcl"
 BEGIN_PROLOG
 Mu2eKinKalTrigger : {
    MAT: {

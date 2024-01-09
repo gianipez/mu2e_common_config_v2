@@ -64,9 +64,9 @@ makeSTH : {
   DebugLevel            : 0
   TestFlag              : true
   FilterHits            : false
-  StereoLine            : false
+  # StereoLine            : false
   ComboHitCollection    : "makePH"
-  EventWindowMarker     : EWMProducer
+  # EventWindowMarker     : EWMProducer
   StrawHitSelectionBits : ["RadiusSelection","EnergySelection","TimeSelection"]
   StrawHitRejectionBits : []
   # hit selection parameters
@@ -76,8 +76,8 @@ makeSTH : {
   UVRes                 : 5.0 # intrinsic resolution mm
   MinRho                : 380 # mm
   MaxRho                : 700 # mm
-  MinimumEnergy         : 0.0001 # MeV
-  MaximumEnergy         : 0.004 # MeV
+  # MinimumEnergy         : 0.0001 # MeV
+  # MaximumEnergy         : 0.004 # MeV
   # parameters used to define overlapping panels
   MaxWdot               : 0.9
   MaxFaceSeparation     : 3
@@ -126,7 +126,7 @@ FlagBkgHits : {
   BackgroundMask       : ["Background"]
   OutputLevel          : "uniquepanel"
   SaveBkgClusters      : false
-  KerasWeights         : "Offline/TrkHitReco/data/TrainBkgDiagStationSpatial.dat"
+  KerasWeights         : "mu2e_common_config/TrkHitReco/data/TrainBkgDiagStationSpatial.dat"
   KerasQuality         : 0.5
   DebugLevel           : 0
 }

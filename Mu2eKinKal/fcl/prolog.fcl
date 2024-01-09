@@ -3,9 +3,9 @@ Mu2eKinKal : {
   # general configuration
   #
   MAT: {
-    elements  : "Offline/TrackerConditions/data/ElementsList.data"
-    isotopes  : "Offline/TrackerConditions/data/IsotopesList.data"
-    materials : "Offline/TrackerConditions/data/MaterialsList.data"
+    elements  : "mu2e_common_config/TrackerConditions/data/ElementsList.data"
+    isotopes  : "mu2e_common_config/TrackerConditions/data/IsotopesList.data"
+    materials : "mu2e_common_config/TrackerConditions/data/MaterialsList.data"
     strawGasMaterialName  : "straw-gas"
     strawWallMaterialName : "straw-wall"
     strawWireMaterialName : "straw-wire"
@@ -106,7 +106,7 @@ Mu2eKinKal : {
       [3.0, 3.0, -1.0, true, 0 ]
     ]
     BkgANNSHUSettings : [
-      [ "Offline/Mu2eKinKal/data/TrainBkgSeed.dat",0.2,"Inactive", 1]
+      [ "mu2e_common_config/Mu2eKinKal/data/TrainBkgSeed.dat",0.2,"Inactive", 1]
     ]
   }
 
@@ -194,7 +194,7 @@ Mu2eKinKal : {
       [3.0, 3.0, -1.0, true, 0 ]
     ]
     BkgANNSHUSettings : [
-      [ "Offline/Mu2eKinKal/data/TrainBkgSeed.dat",0.2,"Inactive", 1]
+      [ "mu2e_common_config/Mu2eKinKal/data/TrainBkgSeed.dat",0.2,"Inactive", 1]
     ]
   }
 
@@ -236,17 +236,17 @@ Mu2eKinKal : {
     ]
 
     BkgANNSHUSettings : [
-      [ "Offline/Mu2eKinKal/data/TrainBkgSeed.dat",0.1,"Inactive", 1],
-      [ "Offline/Mu2eKinKal/data/TrainBkgFinal.dat",0.1,"Inactive", 1]
+      [ "mu2e_common_config/Mu2eKinKal/data/TrainBkgSeed.dat",0.1,"Inactive", 1],
+      [ "mu2e_common_config/Mu2eKinKal/data/TrainBkgFinal.dat",0.1,"Inactive", 1]
     ]
 
     DriftANNSHUSettings : [
       # sign ANN weights, cut, cluster ANN weights, cut, dt cut, freeze, flag, diag
-      [ "Offline/Mu2eKinKal/data/TrainSign_Stage0.dat",0.5, "Offline/Mu2eKinKal/data/TrainCluster_Stage0.dat",0.5, 1.1, "", "TOT:NullDriftVar", 1],
-      [ "Offline/Mu2eKinKal/data/TrainSign_Stage1.dat",0.4, "Offline/Mu2eKinKal/data/TrainCluster_Stage1.dat",0.4, 1.1, "", "TOT:NullDriftVar", 1],
-      [ "Offline/Mu2eKinKal/data/TrainSign_Stage1.dat",0.3, "Offline/Mu2eKinKal/data/TrainCluster_Stage1.dat",0.3, 1.1, "", "TOT:NullDriftVar", 1],
-      [ "Offline/Mu2eKinKal/data/TrainSign_Stage1.dat",0.2, "Offline/Mu2eKinKal/data/TrainCluster_Stage1.dat",0.2, 1.1, "", "TOT:NullDriftVar", 1],
-      [ "Offline/Mu2eKinKal/data/TrainSign_Stage1.dat",0.1, "Offline/Mu2eKinKal/data/TrainCluster_Stage1.dat",0.1, 1.1, "", "TOT:NullDriftVar", 1]
+      [ "mu2e_common_config/Mu2eKinKal/data/TrainSign_Stage0.dat",0.5, "mu2e_common_config/Mu2eKinKal/data/TrainCluster_Stage0.dat",0.5, 1.1, "", "TOT:NullDriftVar", 1],
+      [ "mu2e_common_config/Mu2eKinKal/data/TrainSign_Stage1.dat",0.4, "mu2e_common_config/Mu2eKinKal/data/TrainCluster_Stage1.dat",0.4, 1.1, "", "TOT:NullDriftVar", 1],
+      [ "mu2e_common_config/Mu2eKinKal/data/TrainSign_Stage1.dat",0.3, "mu2e_common_config/Mu2eKinKal/data/TrainCluster_Stage1.dat",0.3, 1.1, "", "TOT:NullDriftVar", 1],
+      [ "mu2e_common_config/Mu2eKinKal/data/TrainSign_Stage1.dat",0.2, "mu2e_common_config/Mu2eKinKal/data/TrainCluster_Stage1.dat",0.2, 1.1, "", "TOT:NullDriftVar", 1],
+      [ "mu2e_common_config/Mu2eKinKal/data/TrainSign_Stage1.dat",0.1, "mu2e_common_config/Mu2eKinKal/data/TrainCluster_Stage1.dat",0.1, 1.1, "", "TOT:NullDriftVar", 1]
     ]
     Chi2SHUSettings : [
     ]

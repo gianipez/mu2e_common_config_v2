@@ -78,6 +78,7 @@ TTKSFDeP.FitDirection          : 0
 # Declare a table with all the modules needed for track reconstruction
 # This should be divided into sim, reco FIXME!
 TprTrigger : {
+    TTTimeCalculator : @local::TTTimeCalculator
   producers : {
     tprFetchDigis : { module_type:PrefetchData
       debugLevel                    : 0
